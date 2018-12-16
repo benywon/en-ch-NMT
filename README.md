@@ -7,7 +7,7 @@ The training set contians 30m english parallel corpora from chinese to english.
 
 As we use Google's sentencepiece encoding methods for both en and ch, the shared vocabulary enables us to learn a single model to translate either english or chinese.
 
-The model is a 8 layer 512 transformer enhanced with LSTM. You can download the model at 
+The model is a 8 layer 512 transformer enhanced with LSTM. You can download the model at https://drive.google.com/file/d/1JMf3daDdMvi2GXH39EatcSmZws8cxFZW/view?usp=sharing
 
 I use a webservice to make the model output more instant visible.
 
