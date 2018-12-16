@@ -1,5 +1,5 @@
 # en-ch-NMT
-a neural machine translation system from english (chinese) to chinese (english) based on 30m parallel data.
+a Pytorch implementation of neural machine translation system from english (chinese) to chinese (english) based on 30m parallel data.
 
 this is a neural machine translation system from english to chinese and vice versa. 
 
@@ -30,18 +30,3 @@ some snapshots of our model.
 
 ![Image text](https://raw.githubusercontent.com/benywon/en-ch-NMT/master/WX20181216-111022%402x.png)
 ![Image text](https://raw.githubusercontent.com/benywon/en-ch-NMT/master/WX20181216-111101%402x.png)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
