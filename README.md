@@ -21,10 +21,13 @@ python3 interface.py
 
 and then open your browser with http://localhost:4000/
 
-HAPPY TRANSLATION
 ---------------------------
 
 some snapshots of our model.
+
+![Image text](https://raw.githubusercontent.com/benywon/en-ch-NMT/master/WX20181216-111022%402x.png)
+![Image text](https://raw.githubusercontent.com/benywon/en-ch-NMT/master/WX20181216-111101%402x.png)
+
 
 
 
