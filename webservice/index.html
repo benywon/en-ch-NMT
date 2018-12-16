@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>machine translation</title>
+    <style>
+        input{
+            width: 30%;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            padding: 7px 0px 7px 5px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s
+        }
+        input:focus{  border-color: #66afe9;
+            outline: 0;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)
+        }
+        h2 {font-size:1.5em; text-shadow: 3px 0px 0px #fff,-3px 0px 0px #fff,0px 3px 0px #fff,0px -3px 0px #fff,6px 6px 10px #000;  font-weight:bold; color: crimson}
+    </style>
+</head>
+<body>
+<div align="center">
+<h2>简单神经机器翻译，你可以输入中文/英文，系统会翻译成英文/中文</h2>
+    <form action="/translate" method="get">
+        <p><input type="text" name="source"></p>
+    </form>
+</div>
+</body>
+</html>
