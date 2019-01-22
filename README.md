@@ -23,7 +23,7 @@ Usage:
 and then open your browser with http://localhost:4000/
 
 ---------------------------
-I also build a public website: https://.bingning.wang/translation/ (due to the mvps memory limits, the model is a 512-5 layer transformer).
+I also build a public website: https://bingning.wang/translation/ (due to the mvps memory limits, the model is a 512-5 layer transformer).
 
 
 some snapshots of our model.
