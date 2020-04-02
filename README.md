@@ -16,7 +16,7 @@ Usage:
 
 1）pip3 install -r requirements.txt
 
-2）download the model from  https://drive.google.com/file/d/1JMf3daDdMvi2GXH39EatcSmZws8cxFZW/view?usp=sharing
+2）create a directory model, and download the model from  https://drive.google.com/file/d/1I8P2t4UxJSkP2kfyNA7LJbrEexoSl0gX/view?usp=sharing
 
 3）python3 interface.py
 
