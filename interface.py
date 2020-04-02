@@ -16,9 +16,9 @@ import sentencepiece as spm
 from model import GeneratorSelfAttention
 from torchUtils import get_model, get_tensor_data
 
-n_embedding = 768
-n_hidden = 768
-n_layer = 2
+n_embedding = 512
+n_hidden = 512
+n_layer = 8
 batch_size = 32
 
 sp = spm.SentencePieceProcessor()
