@@ -69,7 +69,7 @@ def application(request):
 
 
 if __name__ == '__main__':
-    server = make_server('0.0.0.0', 4000, application)
+    server = make_server('0.0.0.0', 4000, application, threaded=True)
     server.serve_forever()
 #     from werkzeug.serving import run_simple
 #
