@@ -119,5 +119,5 @@ def get_att_output(tensor, att_module):
 
 def get_model(filename):
     with open(filename, 'rb') as f:
-        model = torch.load(f)
+        model = torch.load(f,map_location='cpu')
     return model
