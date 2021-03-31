@@ -6,7 +6,7 @@
  @contact: wangbingning@sogou-inc.com
 """
 import os
-os.environ["CUDA_VISIBLE_DEVICES"] = '2'
+
 import torch
 from werkzeug.serving import make_server
 from werkzeug.wrappers import Request, Response
@@ -20,14 +20,15 @@ n_embedding = 512
 n_hidden = 512
 n_layer = 8
 batch_size = 32
-
+is_cuda = torch.cuda.is_available()
 sp = spm.SentencePieceProcessor()
 sp.load('total.uni.35000.model')
 model = GeneratorSelfAttention(sp.GetPieceSize(), n_embedding, n_hidden, n_layer)
 print('build done')
 model.load_state_dict(
     get_model('model/model.trans.{}.{}.th'.format(n_hidden, n_layer)))
-model.cuda()
+if is_cuda:
+    model.cuda()
 model.eval()
 print('model loaded')
 
@@ -46,7 +47,10 @@ def trim(prediction):
 def translate(sequence):
     sequence = sequence.strip()
     ids = sp.EncodeAsIds(sequence)
-    inputs = [None, torch.LongTensor([ids[0:100]]).cuda()]
+    ids = torch.LongTensor([ids[0:100]])
+    if is_cuda:
+        ids = ids.cuda()
+    inputs = [None, ids]
     with torch.no_grad():
         prediction = model(inputs)
     output = get_tensor_data(prediction)
