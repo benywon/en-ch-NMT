@@ -7,6 +7,9 @@
 """
 
 from torchUtils import *
+from tqdm import tqdm
+
+is_cuda = torch.cuda.is_available()
 
 
 class MultiHead(nn.Module):
@@ -31,7 +34,9 @@ class MultiHead(nn.Module):
         [seq, index, target, label] = inputs
         embedding = self.embedding(seq)
         length = seq.size(1)
-        pos = torch.arange(length).cuda()
+        pos = torch.arange(length)
+        if is_cuda:
+            pos.cuda()
         pos %= self.pos_size
         pos = pos.expand_as(seq)
         pos_embedding = self.pos_embedding(pos)
@@ -57,7 +62,9 @@ class MultiHead(nn.Module):
     def inference(self, seq):
         embedding = self.embedding(seq)
         length = seq.size(1)
-        pos = torch.arange(length).cuda()
+        pos = torch.arange(length)
+        if is_cuda:
+            pos.cuda()
         pos %= 512
         pos = pos.expand_as(seq)
         pos_embedding = self.pos_embedding(pos)
@@ -438,16 +445,19 @@ class GeneratorSelfAttention(nn.Module):
         answer_representations, answer_representation = self.encoder(answer)
         (h0, c0) = torch.tanh(self.en_to_de(answer_representation.transpose(0, 1))).split(self.n_hidden, -1)
 
-        target = torch.LongTensor([[self.vocab_size]] * answer_representations.size(0)).cuda()
+        target = torch.LongTensor([[self.vocab_size]] * answer_representations.size(0))
+        if is_cuda:
+            target.cuda()
         target_embedding = self.encoder.embedding(target)
         outputs = []
         b_size = answer_representations.size(0)
         decoder_hidden = None
-        for pos in range(70):
+        for pos in tqdm(range(50)):
             question_representations, (h0, c0) = self.decoder(target_embedding, (h0.contiguous(), c0.contiguous()))
             attentive_representations = self.target_attention(answer_representations, question_representations)
 
-            tmp_hidden = F.leaky_relu(self.transform(torch.cat([question_representations, attentive_representations], -1)), inplace=True)
+            tmp_hidden = F.leaky_relu(
+                self.transform(torch.cat([question_representations, attentive_representations], -1)), inplace=True)
 
             decoder_hidden = tmp_hidden if decoder_hidden is None else torch.cat(
                 [decoder_hidden, tmp_hidden], 1)
@@ -464,8 +474,13 @@ class GeneratorSelfAttention(nn.Module):
             target = torch.argmax(prediction, -1)
             outputs.append(get_tensor_data(target))
             target = target.view(-1, 1)
+            if target.size(0) == 1 and target.item() in (self.vocab_size + 1, 0):
+                break
             target_embedding = self.encoder.embedding(target)
-        return torch.LongTensor(outputs).transpose(0, 1).cuda()
+        results = torch.LongTensor(outputs).transpose(0, 1)
+        if is_cuda:
+            results.cuda()
+        return results
 
 
 if __name__ == '__main__':
